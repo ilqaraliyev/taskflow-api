@@ -10,6 +10,7 @@ public class TaskItem : BaseEntity
     public TaskState State { get; private set; }
     public DateTime? DueTime { get; private set; }
 
+
     public TaskItem(string name, string? description = null, DateTime? dueTime = null)
     {
         if (string.IsNullOrWhiteSpace(name))
