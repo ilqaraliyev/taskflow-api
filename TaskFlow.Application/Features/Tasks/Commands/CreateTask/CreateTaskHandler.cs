@@ -9,10 +9,12 @@ public sealed class CreateTaskHandler
     : IRequestHandler<CreateTaskCommand, TaskItemDto>
 {
     private readonly ITaskRepository _taskRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateTaskHandler(ITaskRepository taskRepository)
+    public CreateTaskHandler(ITaskRepository taskRepository, IUnitOfWork unitOfWork)
     {
         _taskRepository = taskRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<TaskItemDto> Handle(
@@ -25,6 +27,8 @@ public sealed class CreateTaskHandler
             request.DueTime);
 
         await _taskRepository.AddAsync(taskItem, cancellationToken);
+
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new TaskItemDto(
             taskItem.Id,

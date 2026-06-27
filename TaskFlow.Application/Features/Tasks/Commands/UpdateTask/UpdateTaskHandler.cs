@@ -8,10 +8,12 @@ public sealed class UpdateTaskHandler
     : IRequestHandler<UpdateTaskCommand, TaskItemDto?>
 {
     private readonly ITaskRepository _taskRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateTaskHandler(ITaskRepository taskRepository)
+    public UpdateTaskHandler(ITaskRepository taskRepository, IUnitOfWork unitOfWork)
     {
         _taskRepository = taskRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<TaskItemDto?> Handle(
@@ -28,6 +30,8 @@ public sealed class UpdateTaskHandler
         taskItem.ChangeDueTime(request.DueTime);
 
         _taskRepository.Update(taskItem);
+
+        _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new TaskItemDto(
             taskItem.Id,

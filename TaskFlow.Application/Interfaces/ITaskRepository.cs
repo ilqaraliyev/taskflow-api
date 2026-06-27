@@ -6,7 +6,7 @@ public interface ITaskRepository
 {
     Task<List<TaskItem>> GetAllAsync(CancellationToken cancellationToken = default);
     Task<TaskItem?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-    Task AddAsync(TaskItem taskItem, CancellationToken cancellationToken = default);
-    void Update(TaskItem taskItem);
-    void Remove(TaskItem taskItem);
+    Task AddAsync(TaskItem task, CancellationToken cancellationToken = default);
+    void Update(TaskItem task);
+    void Remove(TaskItem task);
 }
