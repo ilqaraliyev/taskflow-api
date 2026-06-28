@@ -27,7 +27,7 @@ public class TaskItem : BaseEntity
         Description = description;
         DueTime = dueTime;
 
-        State = TaskState.Todo;
+        State = TaskState.ToDo;
     }
 
     public void Rename(string name)
@@ -40,24 +40,22 @@ public class TaskItem : BaseEntity
         }
 
         Name = name;
+        UpdatedAt = DateTime.UtcNow;
     }
 
-    public void MoveToInProgress()
+    public void ChangeState(TaskState newState)
     {
         EnsureNotCompleted();
-        State = TaskState.InProgress;
-    }
 
-    public void MarkAsDone()
-    {
-        EnsureNotCompleted();
-        State = TaskState.Done;
+        State = newState;
+        UpdatedAt = DateTime.UtcNow;
     }
 
     public void ChangeDescription(string? description)
     {
         EnsureNotCompleted();
         Description = description;
+        UpdatedAt = DateTime.UtcNow;
     }
 
     public void ChangeDueTime(DateTime? dueTime)
@@ -68,13 +66,14 @@ public class TaskItem : BaseEntity
         }
 
         DueTime = dueTime;
+        UpdatedAt = DateTime.UtcNow;
     }
 
     public void EnsureNotCompleted()
     {
         if (State == TaskState.Done)
         {
-            throw new InvalidOperationException("Completed task cannot be modified");
+            throw new InvalidOperationException("Completed task cannot change");
         }
     }
 }

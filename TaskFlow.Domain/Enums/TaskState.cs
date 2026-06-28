@@ -2,7 +2,7 @@
 
 public enum TaskState
 {
-    Todo,
+    ToDo,
     InProgress,
     Done
 }

@@ -1,5 +1,5 @@
 ﻿namespace TaskFlow.Application.DTOs;
 
-public sealed record UserDto(
+public record UserDto(
     string FullName,
     string Email);

@@ -3,7 +3,7 @@ using TaskFlow.Application.Interfaces;
 
 namespace TaskFlow.Application.Features.Tasks.Commands.DeleteTask;
 
-public sealed class DeleteTaskHandler : IRequestHandler<DeleteTaskCommand, Unit>
+public class DeleteTaskHandler : IRequestHandler<DeleteTaskCommand>
 {
     private readonly ITaskRepository _taskRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -14,19 +14,14 @@ public sealed class DeleteTaskHandler : IRequestHandler<DeleteTaskCommand, Unit>
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         DeleteTaskCommand request,
         CancellationToken cancellationToken)
     {
         var taskItem = await _taskRepository.GetByIdAsync(request.Id, cancellationToken);
 
-        if (taskItem is null)
-            return Unit.Value;
-
         _taskRepository.Remove(taskItem);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
     }
 }

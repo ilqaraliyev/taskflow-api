@@ -4,7 +4,7 @@ using TaskFlow.Application.Interfaces;
 
 namespace TaskFlow.Application.Features.Tasks.Commands.UpdateTask;
 
-public sealed class UpdateTaskHandler 
+public class UpdateTaskHandler 
     : IRequestHandler<UpdateTaskCommand, TaskItemDto?>
 {
     private readonly ITaskRepository _taskRepository;
@@ -25,13 +25,18 @@ public sealed class UpdateTaskHandler
         if (taskItem is null)
             return null;
 
-        taskItem.Rename(request.Name);
-        taskItem.ChangeDescription(request.Description);
-        taskItem.ChangeDueTime(request.DueTime);
+        if (request.Name != null)
+            taskItem.Rename(request.Name);
+
+        if (request.Description != null)
+            taskItem.ChangeDescription(request.Description);
+
+        if (request.DueTime != null)
+            taskItem.ChangeDueTime(request.DueTime);
 
         _taskRepository.Update(taskItem);
 
-        _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new TaskItemDto(
             taskItem.Id,

@@ -3,5 +3,5 @@ using TaskFlow.Application.DTOs;
 
 namespace TaskFlow.Application.Features.Tasks.Queries.GetTaskById;
 
-public sealed record GetTaskByIdQuery(Guid Id) 
+public record GetTaskByIdQuery(Guid Id) 
     : IRequest<TaskItemDto?>;

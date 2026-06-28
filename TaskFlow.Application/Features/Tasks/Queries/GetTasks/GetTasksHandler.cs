@@ -4,7 +4,7 @@ using TaskFlow.Application.Interfaces;
 
 namespace TaskFlow.Application.Features.Tasks.Queries.GetTasks;
 
-public sealed class GetTasksHandler : IRequestHandler<GetTasksQuery, List<TaskItemDto>>
+public class GetTasksHandler : IRequestHandler<GetTasksQuery, List<TaskItemDto>>
 {
     private readonly ITaskRepository _taskRepository;
 

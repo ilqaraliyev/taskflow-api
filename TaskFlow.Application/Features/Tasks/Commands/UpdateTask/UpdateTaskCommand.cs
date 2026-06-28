@@ -3,9 +3,8 @@ using TaskFlow.Application.DTOs;
 
 namespace TaskFlow.Application.Features.Tasks.Commands.UpdateTask;
 
-public sealed record UpdateTaskCommand(
+public record UpdateTaskCommand(
     Guid Id,
-    string Name,
+    string? Name,
     string? Description,
     DateTime? DueTime) : IRequest<TaskItemDto?>;
-

@@ -2,5 +2,5 @@
 
 namespace TaskFlow.Application.Features.Tasks.Commands.DeleteTask;
 
-public sealed record DeleteTaskCommand(Guid Id) 
-    : IRequest<Unit>;
+public record DeleteTaskCommand(Guid Id) 
+    : IRequest;

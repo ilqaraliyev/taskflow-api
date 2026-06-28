@@ -5,7 +5,7 @@ using TaskFlow.Domain.Entities;
 
 namespace TaskFlow.Application.Features.Tasks.Commands.CreateTask;
 
-public sealed class CreateTaskHandler 
+public class CreateTaskHandler 
     : IRequestHandler<CreateTaskCommand, TaskItemDto>
 {
     private readonly ITaskRepository _taskRepository;

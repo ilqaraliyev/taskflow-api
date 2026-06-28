@@ -2,7 +2,7 @@
 
 namespace TaskFlow.Application.DTOs;
 
-public sealed record TaskItemDto(
+public record TaskItemDto(
     Guid Id,
     string Name,
     string? Description,
